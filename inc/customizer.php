@@ -199,7 +199,7 @@ function irimas_customize_register($wp_customize) {
         'priority' => 50,
     ));
     
-    $social_links = array('facebook', 'instagram', 'twitter', 'youtube');
+    $social_links = array('facebook', 'instagram', 'tiktok');
     
     foreach ($social_links as $social) {
         $wp_customize->add_setting('irimas_' . $social, array(

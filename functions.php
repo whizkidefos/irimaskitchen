@@ -114,6 +114,16 @@ function irimas_widgets_init() {
         'before_title'  => '<h3 class="widget-title text-xl font-semibold mb-4 text-white">',
         'after_title'   => '</h3>',
     ));
+    
+    register_sidebar(array(
+        'name'          => __('Blog Sidebar', 'irimas-kitchen'),
+        'id'            => 'blog-sidebar',
+        'description'   => __('Add widgets here to appear in the blog sidebar.', 'irimas-kitchen'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s bg-white rounded-xl shadow-lg p-6 mb-6">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title text-lg font-bold mb-4 font-playfair text-irimas-blue border-b border-gray-200 pb-2">',
+        'after_title'   => '</h3>',
+    ));
 }
 add_action('widgets_init', 'irimas_widgets_init');
 

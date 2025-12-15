@@ -239,7 +239,7 @@ For technical support:
 ### Webhook Setup (for Paystack)
 Set webhook URL in Paystack dashboard:
 ```
-https://yourdomain.com/wp-admin/admin-ajax.php?action=irimas_paystack_webhook
+https://irimaskitchen.com/wp-admin/admin-ajax.php?action=irimas_paystack_webhook
 ```
 
 ### Custom CSS
@@ -247,6 +247,6 @@ Add custom CSS in **Appearance** → **Customize** → **Additional CSS**
 
 ## Conclusion
 
-Your Irima's Kitchen theme is now ready! Test all functionality thoroughly before going live.
+Irima's Kitchen theme is now ready! Test all functionality thoroughly before going live.
 
 For questions or issues, refer to the README.md or contact support.

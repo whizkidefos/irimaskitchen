@@ -222,3 +222,56 @@ function irimas_save_menu_item_meta($post_id) {
     }
 }
 add_action('save_post_menu_item', 'irimas_save_menu_item_meta');
+
+/**
+ * Register FAQ Post Type
+ */
+function irimas_register_faqs() {
+    $labels = array(
+        'name'                  => _x('FAQs', 'Post Type General Name', 'irimas-kitchen'),
+        'singular_name'         => _x('FAQ', 'Post Type Singular Name', 'irimas-kitchen'),
+        'menu_name'             => __('FAQs', 'irimas-kitchen'),
+        'add_new_item'          => __('Add New FAQ', 'irimas-kitchen'),
+        'edit_item'             => __('Edit FAQ', 'irimas-kitchen'),
+        'view_item'             => __('View FAQ', 'irimas-kitchen'),
+        'all_items'             => __('All FAQs', 'irimas-kitchen'),
+        'search_items'          => __('Search FAQs', 'irimas-kitchen'),
+    );
+    
+    $args = array(
+        'labels'                => $labels,
+        'public'                => true,
+        'has_archive'           => false,
+        'show_in_rest'          => true,
+        'supports'              => array('title', 'editor'),
+        'menu_icon'             => 'dashicons-editor-help',
+        'rewrite'               => array('slug' => 'faq'),
+    );
+    
+    register_post_type('faq', $args);
+}
+add_action('init', 'irimas_register_faqs');
+
+/**
+ * Register FAQ Categories Taxonomy
+ */
+function irimas_register_faq_categories() {
+    $labels = array(
+        'name'              => _x('FAQ Categories', 'taxonomy general name', 'irimas-kitchen'),
+        'singular_name'     => _x('FAQ Category', 'taxonomy singular name', 'irimas-kitchen'),
+        'search_items'      => __('Search Categories', 'irimas-kitchen'),
+        'all_items'         => __('All Categories', 'irimas-kitchen'),
+        'edit_item'         => __('Edit Category', 'irimas-kitchen'),
+        'add_new_item'      => __('Add New Category', 'irimas-kitchen'),
+    );
+    
+    $args = array(
+        'labels'            => $labels,
+        'hierarchical'      => true,
+        'show_in_rest'      => true,
+        'rewrite'           => array('slug' => 'faq-category'),
+    );
+    
+    register_taxonomy('faq_category', array('faq'), $args);
+}
+add_action('init', 'irimas_register_faq_categories');

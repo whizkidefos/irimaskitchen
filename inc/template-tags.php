@@ -126,3 +126,14 @@ function irimas_get_post_image($post_id = null, $size = 'full') {
     // Return placeholder
     return 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80';
 }
+
+/**
+ * Calculate reading time for a post
+ */
+function irimas_reading_time($post_id = null) {
+    $post_id = $post_id ?: get_the_ID();
+    $content = get_post_field('post_content', $post_id);
+    $word_count = str_word_count(strip_tags($content));
+    $reading_time = ceil($word_count / 200); // Average reading speed
+    return max(1, $reading_time);
+}

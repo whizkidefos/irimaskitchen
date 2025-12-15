@@ -1,6 +1,8 @@
 <?php
 /**
- * The main template file - Homepage
+ * Blog Index Template
+ * 
+ * Displays the blog posts listing with sidebar
  * 
  * @package IrimasKitchen
  */
@@ -8,205 +10,272 @@
 get_header();
 ?>
 
-<!-- Hero Section -->
-<section class="hero-section relative h-screen flex items-center justify-center overflow-hidden">
-    <div class="hero-bg absolute inset-0 z-0">
-        <?php 
-        $hero_image = get_theme_mod('irimas_hero_image');
-        if ($hero_image): ?>
-            <img src="<?php echo esc_url($hero_image); ?>" alt="Hero" class="w-full h-full object-cover">
-        <?php else: ?>
-            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=80" alt="Hero" class="w-full h-full object-cover">
-        <?php endif; ?>
-        <div class="absolute inset-0 bg-gradient-to-r from-irimas-blue/80 to-transparent"></div>
-    </div>
-    
-    <div class="container mx-auto px-4 relative z-10 text-white">
-        <div class="max-w-2xl hero-content">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 font-playfair hero-title">
-                <?php echo get_theme_mod('irimas_hero_title', __('Welcome to Irima\'s Kitchen', 'irimas-kitchen')); ?>
-            </h1>
-            <p class="text-xl md:text-2xl mb-4 hero-subtitle">
-                <?php _e('We specialize in', 'irimas-kitchen'); ?>
-                <span class="rotating-text inline-block text-irimas-orange font-bold" data-words='["Delicious Meals", "Event Catering", "Private Chef Services", "Meals in Bowls", "Authentic Cuisine"]'>
-                    <?php _e('Delicious Meals', 'irimas-kitchen'); ?>
-                </span>
-            </p>
-            <p class="text-lg md:text-xl mb-8 opacity-90 hero-tagline">
-                <?php echo get_theme_mod('irimas_hero_subtitle', __('Boutique Restaurant and Catering Services', 'irimas-kitchen')); ?>
-            </p>
-            <div class="flex flex-wrap gap-4 hero-buttons">
-                <a href="<?php echo home_url('/menu'); ?>" class="btn-primary text-lg">
-                    <?php _e('View Menu', 'irimas-kitchen'); ?>
-                </a>
-                <a href="<?php echo home_url('/order'); ?>" class="btn-secondary-white text-lg">
-                    <?php _e('Order Now', 'irimas-kitchen'); ?>
-                </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator">
-        <svg class="w-8 h-8 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-        </svg>
-    </div>
-</section>
-
-<!-- Features Section -->
-<section class="py-20 bg-cream-light">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold mb-4 font-playfair text-irimas-blue section-title">
-                <?php _e('Our Services', 'irimas-kitchen'); ?>
-            </h2>
-            <div class="section-divider"></div>
-            <p class="text-gray-600 max-w-2xl mx-auto">
-                <?php _e('Discover our range of boutique dining and catering services', 'irimas-kitchen'); ?>
-            </p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 feature-grid">
-            <div class="feature-card bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
-                <div class="feature-icon w-16 h-16 bg-irimas-red/10 rounded-full flex items-center justify-center mb-6 mx-auto">
-                    <svg class="w-8 h-8 text-irimas-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold mb-4 text-irimas-blue font-playfair text-center">
-                    <?php _e('Meals in Bowls', 'irimas-kitchen'); ?>
-                </h3>
-                <p class="text-gray-600 text-center">
-                    <?php _e('Delicious, nutritious meals served fresh in convenient bowls', 'irimas-kitchen'); ?>
-                </p>
-            </div>
-            
-            <div class="feature-card bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
-                <div class="feature-icon w-16 h-16 bg-irimas-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto">
-                    <svg class="w-8 h-8 text-irimas-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold mb-4 text-irimas-blue font-playfair text-center">
-                    <?php _e('Event Catering', 'irimas-kitchen'); ?>
-                </h3>
-                <p class="text-gray-600 text-center">
-                    <?php _e('Professional catering for all your special events and occasions', 'irimas-kitchen'); ?>
-                </p>
-            </div>
-            
-            <div class="feature-card bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
-                <div class="feature-icon w-16 h-16 bg-irimas-green/10 rounded-full flex items-center justify-center mb-6 mx-auto">
-                    <svg class="w-8 h-8 text-irimas-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold mb-4 text-irimas-blue font-playfair text-center">
-                    <?php _e('Delivery & Pickup', 'irimas-kitchen'); ?>
-                </h3>
-                <p class="text-gray-600 text-center">
-                    <?php _e('Convenient delivery and pickup options for your orders', 'irimas-kitchen'); ?>
-                </p>
-            </div>
-            
-            <div class="feature-card bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
-                <div class="feature-icon w-16 h-16 bg-irimas-blue/10 rounded-full flex items-center justify-center mb-6 mx-auto">
-                    <svg class="w-8 h-8 text-irimas-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold mb-4 text-irimas-blue font-playfair text-center">
-                    <?php _e('Private Chef', 'irimas-kitchen'); ?>
-                </h3>
-                <p class="text-gray-600 text-center">
-                    <?php _e('Personalized chef services for intimate dining experiences', 'irimas-kitchen'); ?>
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Featured Menu Items -->
-<section class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold mb-4 font-playfair text-irimas-blue">
-                <?php _e('Featured Dishes', 'irimas-kitchen'); ?>
-            </h2>
-            <div class="section-divider"></div>
-            <p class="text-gray-600 max-w-2xl mx-auto">
-                <?php _e('Taste our chef\'s special selections', 'irimas-kitchen'); ?>
-            </p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 menu-grid">
-            <?php
-            $featured_items = get_posts(array(
-                'post_type' => 'menu_item',
-                'posts_per_page' => 6,
-                'orderby' => 'rand',
-            ));
-            
-            foreach ($featured_items as $item):
-                setup_postdata($item);
-                $price = get_post_meta($item->ID, '_menu_item_price', true);
-                $available = get_post_meta($item->ID, '_menu_item_available', true);
-                $image_url = irimas_get_post_image($item->ID, 'irimas-menu-item');
-            ?>
-                <div class="menu-item-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo get_the_title($item); ?>" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500">
-                        <?php if ($available !== '1'): ?>
-                            <div class="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                <?php _e('Sold Out', 'irimas-kitchen'); ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-irimas-blue font-playfair">
-                            <?php echo get_the_title($item); ?>
-                        </h3>
-                        <p class="text-gray-600 mb-4 text-sm">
-                            <?php echo wp_trim_words(get_the_excerpt($item), 15); ?>
-                        </p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-2xl font-bold text-irimas-red">₦<?php echo number_format($price, 2); ?></span>
-                            <?php if ($available === '1'): ?>
-                                <button class="add-to-cart btn-primary" data-id="<?php echo $item->ID; ?>" data-name="<?php echo esc_attr(get_the_title($item)); ?>" data-price="<?php echo esc_attr($price); ?>">
-                                    <?php _e('Add to Cart', 'irimas-kitchen'); ?>
-                                </button>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; wp_reset_postdata(); ?>
-        </div>
-        
-        <div class="text-center mt-12">
-            <a href="<?php echo home_url('/menu'); ?>" class="btn-secondary text-lg">
-                <?php _e('View Full Menu', 'irimas-kitchen'); ?>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- CTA Section -->
-<section class="py-20 bg-gradient-to-r from-irimas-blue to-irimas-green text-white relative overflow-hidden">
+<!-- Blog Header -->
+<section class="relative py-20 bg-gradient-to-r from-irimas-blue to-irimas-blue/90">
     <div class="absolute inset-0 opacity-10">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMzYgMzRjMC0yLTItNC00LTRzLTQgMi00IDQgMiA0IDQgNCA0LTIgNC00em0wLTMwYzAtMi0yLTQtNC00cy00IDItNCA0IDIgNCA0IDQgNC0yIDQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')]"></div>
     </div>
-    
     <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-4xl mx-auto text-center cta-content">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 font-playfair">
-                <?php _e('Ready to Experience Exceptional Cuisine?', 'irimas-kitchen'); ?>
-            </h2>
-            <p class="text-xl mb-8 opacity-90">
-                <?php _e('Order now and enjoy our delicious meals delivered to your doorstep', 'irimas-kitchen'); ?>
-            </p>
-            <a href="<?php echo home_url('/order'); ?>" class="btn-primary-white text-lg">
-                <?php _e('Place Your Order', 'irimas-kitchen'); ?>
-            </a>
+        <div class="max-w-4xl mx-auto text-center text-white">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 font-playfair"><?php _e('Our Blog', 'irimas-kitchen'); ?></h1>
+            <p class="text-xl opacity-90"><?php _e('Recipes, tips, and stories from our kitchen to yours', 'irimas-kitchen'); ?></p>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<div class="bg-cream-light py-4 border-b border-gray-200">
+    <div class="container mx-auto px-4">
+        <nav class="text-sm text-gray-600">
+            <a href="<?php echo home_url('/'); ?>" class="hover:text-irimas-red transition"><?php _e('Home', 'irimas-kitchen'); ?></a>
+            <span class="mx-2">/</span>
+            <span class="text-irimas-blue font-medium"><?php _e('Blog', 'irimas-kitchen'); ?></span>
+        </nav>
+    </div>
+</div>
+
+<!-- Blog Content -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-10">
+            
+            <!-- Main Content -->
+            <main class="lg:w-2/3">
+                <?php if (have_posts()): ?>
+                    
+                    <!-- Featured Post (First Post) -->
+                    <?php if (!is_paged()): ?>
+                        <?php rewind_posts(); ?>
+                        <?php if (have_posts()): the_post(); ?>
+                            <article class="featured-post bg-white rounded-2xl shadow-xl overflow-hidden mb-10 group">
+                                <div class="relative h-80 overflow-hidden">
+                                    <?php if (has_post_thumbnail()): ?>
+                                        <?php the_post_thumbnail('irimas-featured', array('class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500')); ?>
+                                    <?php else: ?>
+                                        <div class="w-full h-full bg-gradient-to-br from-irimas-blue to-irimas-green flex items-center justify-center">
+                                            <svg class="w-20 h-20 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                                            </svg>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="absolute top-4 left-4">
+                                        <span class="bg-irimas-red text-white px-4 py-1 rounded-full text-sm font-semibold">
+                                            <?php _e('Featured', 'irimas-kitchen'); ?>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="p-8">
+                                    <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                                        <span class="flex items-center gap-1">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                            </svg>
+                                            <?php echo get_the_date(); ?>
+                                        </span>
+                                        <span class="flex items-center gap-1">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                            </svg>
+                                            <?php the_author(); ?>
+                                        </span>
+                                        <?php if (has_category()): ?>
+                                            <span class="flex items-center gap-1">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                                </svg>
+                                                <?php the_category(', '); ?>
+                                            </span>
+                                        <?php endif; ?>
+                                    </div>
+                                    <h2 class="text-2xl md:text-3xl font-bold mb-4 font-playfair text-irimas-blue">
+                                        <a href="<?php the_permalink(); ?>" class="hover:text-irimas-red transition"><?php the_title(); ?></a>
+                                    </h2>
+                                    <p class="text-gray-600 mb-6 leading-relaxed"><?php echo wp_trim_words(get_the_excerpt(), 40); ?></p>
+                                    <a href="<?php the_permalink(); ?>" class="inline-flex items-center gap-2 text-irimas-red font-semibold hover:gap-3 transition-all">
+                                        <?php _e('Read More', 'irimas-kitchen'); ?>
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </article>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    
+                    <!-- Blog Posts Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <?php 
+                        $post_count = 0;
+                        while (have_posts()): the_post(); 
+                            // Skip first post on first page (already shown as featured)
+                            if (!is_paged() && $post_count === 0) {
+                                $post_count++;
+                                continue;
+                            }
+                            $post_count++;
+                        ?>
+                            <article class="blog-card bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow">
+                                <div class="relative h-48 overflow-hidden">
+                                    <?php if (has_post_thumbnail()): ?>
+                                        <?php the_post_thumbnail('irimas-menu-item', array('class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500')); ?>
+                                    <?php else: ?>
+                                        <div class="w-full h-full bg-gradient-to-br from-irimas-orange to-irimas-red flex items-center justify-center">
+                                            <svg class="w-12 h-12 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                                            </svg>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if (has_category()): ?>
+                                        <div class="absolute top-3 left-3">
+                                            <?php 
+                                            $categories = get_the_category();
+                                            if ($categories): ?>
+                                                <span class="bg-irimas-blue text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                                    <?php echo esc_html($categories[0]->name); ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="p-6">
+                                    <div class="flex items-center gap-3 text-xs text-gray-500 mb-3">
+                                        <span><?php echo get_the_date(); ?></span>
+                                        <span>•</span>
+                                        <span><?php echo irimas_reading_time(); ?> <?php _e('min read', 'irimas-kitchen'); ?></span>
+                                    </div>
+                                    <h3 class="text-lg font-bold mb-3 font-playfair text-irimas-blue line-clamp-2">
+                                        <a href="<?php the_permalink(); ?>" class="hover:text-irimas-red transition"><?php the_title(); ?></a>
+                                    </h3>
+                                    <p class="text-gray-600 text-sm mb-4 line-clamp-3"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
+                                    <a href="<?php the_permalink(); ?>" class="text-irimas-red text-sm font-semibold hover:underline">
+                                        <?php _e('Read More →', 'irimas-kitchen'); ?>
+                                    </a>
+                                </div>
+                            </article>
+                        <?php endwhile; ?>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="mt-12">
+                        <?php
+                        the_posts_pagination(array(
+                            'mid_size' => 2,
+                            'prev_text' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>',
+                            'next_text' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>',
+                            'class' => 'irimas-pagination',
+                        ));
+                        ?>
+                    </div>
+                    
+                <?php else: ?>
+                    
+                    <!-- No Posts Found -->
+                    <div class="bg-white rounded-xl shadow-lg p-12 text-center">
+                        <svg class="w-20 h-20 text-gray-300 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                        </svg>
+                        <h2 class="text-2xl font-bold mb-4 font-playfair text-irimas-blue"><?php _e('No Posts Yet', 'irimas-kitchen'); ?></h2>
+                        <p class="text-gray-600 mb-6"><?php _e('We\'re working on some delicious content. Check back soon!', 'irimas-kitchen'); ?></p>
+                        <a href="<?php echo home_url('/'); ?>" class="btn-primary">
+                            <?php _e('Back to Home', 'irimas-kitchen'); ?>
+                        </a>
+                    </div>
+                    
+                <?php endif; ?>
+            </main>
+            
+            <!-- Sidebar -->
+            <aside class="lg:w-1/3">
+                <div class="sticky top-24 space-y-8">
+                    
+                    <!-- Search Widget -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-lg font-bold mb-4 font-playfair text-irimas-blue border-b border-gray-200 pb-2"><?php _e('Search', 'irimas-kitchen'); ?></h3>
+                        <form role="search" method="get" action="<?php echo home_url('/'); ?>">
+                            <div class="relative">
+                                <input type="search" name="s" placeholder="<?php _e('Search articles...', 'irimas-kitchen'); ?>" class="w-full pl-4 pr-12 py-3 border border-gray-200 rounded-lg focus:border-irimas-red focus:ring-2 focus:ring-irimas-red/20 outline-none transition">
+                                <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-irimas-red transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Categories Widget -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-lg font-bold mb-4 font-playfair text-irimas-blue border-b border-gray-200 pb-2"><?php _e('Categories', 'irimas-kitchen'); ?></h3>
+                        <ul class="space-y-3">
+                            <?php
+                            $categories = get_categories(array('hide_empty' => true));
+                            foreach ($categories as $category):
+                            ?>
+                                <li>
+                                    <a href="<?php echo get_category_link($category->term_id); ?>" class="flex items-center justify-between text-gray-600 hover:text-irimas-red transition group">
+                                        <span class="flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-irimas-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                            </svg>
+                                            <?php echo esc_html($category->name); ?>
+                                        </span>
+                                        <span class="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-irimas-red group-hover:text-white transition">
+                                            <?php echo $category->count; ?>
+                                        </span>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    
+                    <!-- Recent Posts Widget -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-lg font-bold mb-4 font-playfair text-irimas-blue border-b border-gray-200 pb-2"><?php _e('Recent Posts', 'irimas-kitchen'); ?></h3>
+                        <ul class="space-y-4">
+                            <?php
+                            $recent_posts = get_posts(array('numberposts' => 5));
+                            foreach ($recent_posts as $post):
+                                setup_postdata($post);
+                            ?>
+                                <li class="flex gap-3 group">
+                                    <div class="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
+                                        <?php if (has_post_thumbnail($post)): ?>
+                                            <?php echo get_the_post_thumbnail($post, 'thumbnail', array('class' => 'w-full h-full object-cover')); ?>
+                                        <?php else: ?>
+                                            <div class="w-full h-full bg-gradient-to-br from-irimas-orange to-irimas-red"></div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="flex-1">
+                                        <a href="<?php the_permalink(); ?>" class="text-sm font-semibold text-gray-800 hover:text-irimas-red transition line-clamp-2">
+                                            <?php the_title(); ?>
+                                        </a>
+                                        <p class="text-xs text-gray-500 mt-1"><?php echo get_the_date(); ?></p>
+                                    </div>
+                                </li>
+                            <?php endforeach; wp_reset_postdata(); ?>
+                        </ul>
+                    </div>
+                    
+                    <!-- Newsletter Widget -->
+                    <div class="bg-gradient-to-br from-irimas-blue to-irimas-green rounded-xl shadow-lg p-6 text-white">
+                        <h3 class="text-lg font-bold mb-2 font-playfair"><?php _e('Newsletter', 'irimas-kitchen'); ?></h3>
+                        <p class="text-sm opacity-90 mb-4"><?php _e('Subscribe for recipes, tips, and exclusive offers!', 'irimas-kitchen'); ?></p>
+                        <form class="space-y-3">
+                            <input type="email" placeholder="<?php _e('Your email address', 'irimas-kitchen'); ?>" class="w-full px-4 py-3 rounded-lg text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-white/50 outline-none">
+                            <button type="submit" class="w-full bg-white text-irimas-blue font-semibold py-3 rounded-lg hover:bg-irimas-orange hover:text-white transition">
+                                <?php _e('Subscribe', 'irimas-kitchen'); ?>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Dynamic Sidebar Widgets -->
+                    <?php if (is_active_sidebar('blog-sidebar')): ?>
+                        <?php dynamic_sidebar('blog-sidebar'); ?>
+                    <?php endif; ?>
+                    
+                </div>
+            </aside>
+            
         </div>
     </div>
 </section>

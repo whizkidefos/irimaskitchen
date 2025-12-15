@@ -18,8 +18,8 @@
                     <?php the_custom_logo(); ?>
                 <?php else: ?>
                     <a href="<?php echo home_url('/'); ?>" class="flex items-center space-x-2">
-                        <img src="<?php echo IRIMAS_THEME_URI; ?>/assets/images/logo.png" alt="<?php bloginfo('name'); ?>" class="h-12 w-auto" onerror="this.style.display='none'">
-                        <span class="text-2xl font-bold text-irimas-blue font-playfair"><?php bloginfo('name'); ?></span>
+                        <img src="<?php echo IRIMAS_THEME_URI; ?>/assets/images/irimas-kitchen-badge-logo.png" alt="<?php bloginfo('name'); ?>" class="h-10 w-auto">
+                        <span class="text-xl lg:text-2xl font-bold text-irimas-blue font-playfair"><?php bloginfo('name'); ?></span>
                     </a>
                 <?php endif; ?>
             </div>
