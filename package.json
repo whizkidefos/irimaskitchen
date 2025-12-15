@@ -1,0 +1,15 @@
+{
+  "name": "irimas-kitchen-theme",
+  "version": "1.0.0",
+  "description": "WordPress theme for Irima's Kitchen",
+  "scripts": {
+    "build": "npx tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/irimas-kitchen.css --minify",
+    "dev": "npx tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/irimas-kitchen.css --watch"
+  },
+  "keywords": ["wordpress", "theme", "restaurant", "catering"],
+  "author": "Irima's Kitchen",
+  "license": "Proprietary",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
