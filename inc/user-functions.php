@@ -278,3 +278,48 @@ function irimas_reset_password() {
     ));
 }
 add_action('wp_ajax_nopriv_irimas_reset_password', 'irimas_reset_password');
+
+/**
+ * Handle Newsletter Subscription
+ */
+function irimas_newsletter_subscribe() {
+    check_ajax_referer('irimas-nonce', 'nonce');
+    
+    $email = sanitize_email($_POST['email']);
+    
+    if (empty($email) || !is_email($email)) {
+        wp_send_json_error(array('message' => __('Please enter a valid email address.', 'irimas-kitchen')));
+    }
+    
+    // Check if already subscribed
+    $subscribers = get_option('irimas_newsletter_subscribers', array());
+    
+    if (in_array($email, array_column($subscribers, 'email'))) {
+        wp_send_json_error(array('message' => __('This email is already subscribed to our newsletter.', 'irimas-kitchen')));
+    }
+    
+    // Add subscriber
+    $subscribers[] = array(
+        'email' => $email,
+        'date' => current_time('mysql'),
+        'status' => 'active',
+    );
+    
+    update_option('irimas_newsletter_subscribers', $subscribers);
+    
+    // Send welcome email
+    $subject = sprintf(__('Welcome to %s Newsletter!', 'irimas-kitchen'), get_bloginfo('name'));
+    $message = sprintf(
+        __("Hello!\n\nThank you for subscribing to the %s newsletter.\n\nYou'll receive updates about our latest recipes, special offers, and delicious news from our kitchen.\n\nBest regards,\nThe %s Team", 'irimas-kitchen'),
+        get_bloginfo('name'),
+        get_bloginfo('name')
+    );
+    
+    wp_mail($email, $subject, $message);
+    
+    wp_send_json_success(array(
+        'message' => __('Thank you for subscribing! Check your email for a welcome message.', 'irimas-kitchen'),
+    ));
+}
+add_action('wp_ajax_irimas_newsletter_subscribe', 'irimas_newsletter_subscribe');
+add_action('wp_ajax_nopriv_irimas_newsletter_subscribe', 'irimas_newsletter_subscribe');

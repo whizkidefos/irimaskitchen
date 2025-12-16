@@ -260,8 +260,8 @@ get_header();
                     <div class="bg-gradient-to-br from-irimas-blue to-irimas-green rounded-xl shadow-lg p-6 text-white">
                         <h3 class="text-lg font-bold mb-2 font-playfair"><?php _e('Newsletter', 'irimas-kitchen'); ?></h3>
                         <p class="text-sm opacity-90 mb-4"><?php _e('Subscribe for recipes, tips, and exclusive offers!', 'irimas-kitchen'); ?></p>
-                        <form class="space-y-3">
-                            <input type="email" placeholder="<?php _e('Your email address', 'irimas-kitchen'); ?>" class="w-full px-4 py-3 rounded-lg text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-white/50 outline-none">
+                        <form class="newsletter-form space-y-3">
+                            <input type="email" name="email" placeholder="<?php _e('Your email address', 'irimas-kitchen'); ?>" class="w-full px-4 py-3 rounded-lg text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-white/50 outline-none" required>
                             <button type="submit" class="w-full bg-white text-irimas-blue font-semibold py-3 rounded-lg hover:bg-irimas-orange hover:text-white transition">
                                 <?php _e('Subscribe', 'irimas-kitchen'); ?>
                             </button>
