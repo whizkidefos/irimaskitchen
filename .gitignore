@@ -1,4 +1,43 @@
+# Node modules
 node_modules/
-*.log
+npm-debug.log
+yarn-error.log
+
+# Compiled CSS
+assets/css/output.css
+
+# OS files
 .DS_Store
-*.zip
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.settings/
+.buildpath
+
+# Logs
+*.log
+
+# Package lock files (optional - remove if you want to commit them)
+package-lock.json
+yarn.lock
+
+# WordPress
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/backup-db/
+
+# Temporary files
+*.tmp
+*.temp
