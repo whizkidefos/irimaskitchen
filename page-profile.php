@@ -134,8 +134,7 @@ get_header();
                             <?php
                             $orders = get_posts(array(
                                 'post_type' => 'order',
-                                'meta_key' => '_order_user_id',
-                                'meta_value' => $user_id,
+                                'author' => $user_id,
                                 'posts_per_page' => 10,
                                 'orderby' => 'date',
                                 'order' => 'DESC',

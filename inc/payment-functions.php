@@ -11,8 +11,13 @@ if (!defined('ABSPATH')) {
 
 /**
  * Initialize Paystack Payment
+ * 
+ * @param int $order_id Order ID
+ * @param string $email Customer email
+ * @param float $amount Order amount
+ * @param string $channel Payment channel: 'card' or 'bank_transfer'
  */
-function irimas_initialize_paystack_payment($order_id, $email, $amount) {
+function irimas_initialize_paystack_payment($order_id, $email, $amount, $channel = 'card') {
     $is_test_mode = get_option('irimas_paystack_test_mode', '1');
     $secret_key = $is_test_mode ? 
         get_option('irimas_paystack_test_secret_key') : 
@@ -38,6 +43,14 @@ function irimas_initialize_paystack_payment($order_id, $email, $amount) {
         ),
     );
     
+    // Set payment channels based on method
+    if ($channel === 'bank_transfer') {
+        $fields['channels'] = array('bank_transfer');
+    } elseif ($channel === 'card') {
+        $fields['channels'] = array('card');
+    }
+    // If no channel specified, Paystack will show all available options
+    
     $args = array(
         'headers' => array(
             'Authorization' => 'Bearer ' . $secret_key,
@@ -57,6 +70,7 @@ function irimas_initialize_paystack_payment($order_id, $email, $amount) {
     
     if ($body['status']) {
         update_post_meta($order_id, '_paystack_reference', $order_number);
+        update_post_meta($order_id, '_payment_channel', $channel);
         return array(
             'authorization_url' => $body['data']['authorization_url'],
             'access_code' => $body['data']['access_code'],

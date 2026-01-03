@@ -92,6 +92,17 @@ function irimas_breadcrumbs() {
 }
 
 /**
+ * Calculate reading time for a post
+ */
+function irimas_reading_time($post_id = null) {
+    $post_id = $post_id ?: get_the_ID();
+    $content = get_post_field('post_content', $post_id);
+    $word_count = str_word_count(strip_tags($content));
+    $reading_time = ceil($word_count / 200); // Average reading speed: 200 words per minute
+    return max(1, $reading_time); // Minimum 1 minute
+}
+
+/**
  * Get cart count
  */
 function irimas_get_cart_count() {
@@ -128,12 +139,39 @@ function irimas_get_post_image($post_id = null, $size = 'full') {
 }
 
 /**
- * Calculate reading time for a post
+ * Hide post meta on menu item archives
  */
-function irimas_reading_time($post_id = null) {
-    $post_id = $post_id ?: get_the_ID();
-    $content = get_post_field('post_content', $post_id);
-    $word_count = str_word_count(strip_tags($content));
-    $reading_time = ceil($word_count / 200); // Average reading speed
-    return max(1, $reading_time);
+function irimas_hide_menu_item_meta() {
+    if (is_post_type_archive('menu_item') || is_tax('menu_category')) {
+        ?>
+        <style>
+            /* Hide all post meta elements on menu pages */
+            .menu-item-card .entry-meta,
+            .menu-item-card .posted-on,
+            .menu-item-card .byline,
+            .menu-item-card .author,
+            .menu-item-card .entry-footer,
+            .menu-item-card time,
+            .menu-item-card .cat-links,
+            .menu-item-card .tags-links,
+            .menu-item-card .comments-link,
+            .menu-item-card .edit-link,
+            article.menu-item .entry-meta,
+            article.menu-item .posted-on,
+            article.menu-item .byline,
+            article.menu-item .author,
+            article.menu-item .entry-footer,
+            article.menu-item time,
+            article[class*="menu_item"] .entry-meta,
+            article[class*="menu_item"] .posted-on,
+            article[class*="menu_item"] .byline,
+            article[class*="menu_item"] .author,
+            article[class*="menu_item"] .entry-footer,
+            article[class*="menu_item"] time {
+                display: none !important;
+            }
+        </style>
+        <?php
+    }
 }
+add_action('wp_head', 'irimas_hide_menu_item_meta');

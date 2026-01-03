@@ -1,28 +1,32 @@
 <?php
 /**
- * The template for displaying menu item archives
+ * The template for displaying menu category archives
  *
  * @package IrimasKitchen
  */
 
 get_header();
+
+$term = get_queried_object();
 ?>
 
-<div class="menu-archive-page py-12 bg-gray-50">
+<div class="menu-category-page py-12 bg-gray-50">
     <div class="container mx-auto px-4">
         <header class="mb-12 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-4 font-playfair text-irimas-blue">
-                <?php _e('Our Menu', 'irimas-kitchen'); ?>
+                <?php echo esc_html($term->name); ?>
             </h1>
-            <p class="text-gray-600 max-w-2xl mx-auto">
-                <?php _e('Discover our delicious selection of Nigerian cuisine', 'irimas-kitchen'); ?>
-            </p>
+            <?php if ($term->description): ?>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    <?php echo esc_html($term->description); ?>
+                </p>
+            <?php endif; ?>
         </header>
 
         <!-- Category Filter -->
         <div class="flex flex-wrap justify-center gap-2 mb-8">
             <a href="<?php echo get_post_type_archive_link('menu_item'); ?>" 
-               class="px-4 py-2 rounded-full <?php echo !is_tax('menu_category') ? 'bg-irimas-red text-white' : 'bg-gray-200 text-gray-700 hover:bg-irimas-blue hover:text-white'; ?> transition">
+               class="px-4 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-irimas-blue hover:text-white transition">
                 <?php _e('All', 'irimas-kitchen'); ?>
             </a>
             <?php
@@ -32,7 +36,7 @@ get_header();
             ));
             
             foreach ($categories as $category):
-                $is_current = is_tax('menu_category', $category->slug);
+                $is_current = ($category->term_id === $term->term_id);
             ?>
                 <a href="<?php echo get_term_link($category); ?>" 
                    class="px-4 py-2 rounded-full <?php echo $is_current ? 'bg-irimas-red text-white' : 'bg-gray-200 text-gray-700 hover:bg-irimas-blue hover:text-white'; ?> transition">
@@ -101,7 +105,7 @@ get_header();
                 <?php endwhile; ?>
             <?php else : ?>
                 <div class="col-span-full text-center py-12">
-                    <p class="text-gray-600 text-lg"><?php _e('No menu items found.', 'irimas-kitchen'); ?></p>
+                    <p class="text-gray-600 text-lg"><?php _e('No items in this category yet.', 'irimas-kitchen'); ?></p>
                     <a href="<?php echo get_post_type_archive_link('menu_item'); ?>" class="btn-primary mt-4 inline-block">
                         <?php _e('View All Menu Items', 'irimas-kitchen'); ?>
                     </a>

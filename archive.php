@@ -24,9 +24,9 @@ get_header();
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <?php if (have_posts()) : ?>
                 <?php while (have_posts()) : the_post(); ?>
-                    <article <?php post_class('bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition'); ?>>
+                    <article class="blog-post-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
                         <?php if (has_post_thumbnail()) : ?>
-                            <a href="<?php the_permalink(); ?>">
+                            <a href="<?php the_permalink(); ?>" class="block">
                                 <?php the_post_thumbnail('medium_large', array('class' => 'w-full h-64 object-cover')); ?>
                             </a>
                         <?php endif; ?>

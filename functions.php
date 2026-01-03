@@ -138,6 +138,7 @@ require_once IRIMAS_THEME_DIR . '/inc/payment-functions.php';
 require_once IRIMAS_THEME_DIR . '/inc/user-functions.php';
 require_once IRIMAS_THEME_DIR . '/inc/contact-functions.php';
 require_once IRIMAS_THEME_DIR . '/inc/customizer.php';
+require_once IRIMAS_THEME_DIR . '/inc/login-customization.php';
 
 /**
  * Custom template tags

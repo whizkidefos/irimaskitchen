@@ -71,14 +71,23 @@ function irimas_process_order() {
     
     // Return response based on payment method
     if ($payment_method === 'paystack') {
-        $paystack_data = irimas_initialize_paystack_payment($order_id, $customer_email, $total);
+        // Card payment via Paystack
+        $paystack_data = irimas_initialize_paystack_payment($order_id, $customer_email, $total, 'card');
+        wp_send_json_success(array(
+            'order_id' => $order_id,
+            'order_number' => $order_number,
+            'payment_data' => $paystack_data,
+        ));
+    } elseif ($payment_method === 'paystack_bank_transfer') {
+        // Bank transfer via Paystack (automated)
+        $paystack_data = irimas_initialize_paystack_payment($order_id, $customer_email, $total, 'bank_transfer');
         wp_send_json_success(array(
             'order_id' => $order_id,
             'order_number' => $order_number,
             'payment_data' => $paystack_data,
         ));
     } else {
-        // Bank transfer
+        // Manual bank transfer
         wp_send_json_success(array(
             'order_id' => $order_id,
             'order_number' => $order_number,

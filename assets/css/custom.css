@@ -240,6 +240,137 @@ html {
     }
 }
 
+/* Pagination Styles */
+.pagination {
+    margin-top: 3rem;
+}
+
+.pagination ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination li {
+    margin: 0;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    min-width: 45px;
+    padding: 0.75rem 1rem;
+    background-color: #ffffff;
+    color: #1F4E79;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-align: center;
+    border: 2px solid #e5e7eb;
+}
+
+.pagination a:hover {
+    background-color: #D72638;
+    color: white;
+    border-color: #D72638;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(215, 38, 56, 0.2);
+}
+
+.pagination .current {
+    background-color: #D72638;
+    color: white;
+    border-color: #D72638;
+    font-weight: 700;
+}
+
+.pagination .prev a,
+.pagination .next a {
+    background-color: #1F4E79;
+    color: white;
+    border-color: #1F4E79;
+    padding: 0.75rem 1.5rem;
+}
+
+.pagination .prev a:hover,
+.pagination .next a:hover {
+    background-color: #3BB273;
+    border-color: #3BB273;
+}
+
+.pagination .dots {
+    background: transparent;
+    border: none;
+    cursor: default;
+    color: #6b7280;
+}
+
+.pagination .dots:hover {
+    background: transparent;
+    transform: none;
+}
+
+/* Page numbers list */
+.page-numbers {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.page-numbers li {
+    display: inline-block;
+}
+
+.page-numbers a,
+.page-numbers span {
+    display: inline-block;
+    min-width: 45px;
+    padding: 0.75rem 1rem;
+    background-color: #ffffff;
+    color: #1F4E79;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-align: center;
+    border: 2px solid #e5e7eb;
+}
+
+.page-numbers a:hover {
+    background-color: #D72638;
+    color: white;
+    border-color: #D72638;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(215, 38, 56, 0.2);
+}
+
+.page-numbers .current {
+    background-color: #D72638;
+    color: white;
+    border-color: #D72638;
+}
+
+.page-numbers .prev,
+.page-numbers .next {
+    font-weight: 600;
+}
+
+.page-numbers .dots {
+    background: transparent;
+    border: none;
+    color: #6b7280;
+}
+
 /* Button Styles */
 .btn-primary {
     display: inline-flex;
@@ -494,4 +625,402 @@ input[type="checkbox"] {
 .mobile-nav-link:hover .mobile-nav-icon {
     transform: scale(1.1);
     background: linear-gradient(135deg, rgba(215, 38, 56, 0.1), rgba(244, 157, 55, 0.1));
+}
+
+/* FIX: Hide excessive WordPress meta on blog archives */
+.archive-page .entry-footer,
+.archive-page .cat-links,
+.archive-page .tags-links,
+.archive-page .comments-link,
+.archive-page .edit-link,
+.blog .entry-footer,
+.blog .cat-links,
+.blog .tags-links,
+.blog .comments-link,
+.blog .edit-link,
+.home .entry-footer,
+.home .cat-links,
+.home .tags-links,
+.home .comments-link,
+.home .edit-link {
+    display: none !important;
+}
+
+/* Clean blog card layout */
+.archive-page article,
+.blog article,
+.home article {
+    overflow: hidden;
+}
+
+.archive-page .entry-meta,
+.blog .entry-meta,
+.home .entry-meta {
+    margin-bottom: 1rem !important;
+}
+
+/* Blog post cards - prevent meta overflow */
+.blog-post-card .entry-footer,
+.featured-post .entry-footer,
+article[class*="post-"] .entry-footer {
+    display: none !important;
+}
+
+/* Blog Layout - Missing Tailwind Responsive Classes */
+@media (min-width: 1024px) {
+    .lg\:flex-row {
+        flex-direction: row !important;
+    }
+    
+    .lg\:w-2\/3 {
+        width: 66.666667% !important;
+    }
+    
+    .lg\:w-1\/3 {
+        width: 33.333333% !important;
+    }
+}
+
+/* ============================================
+   Blog Content Typography (Prose Styles)
+   ============================================ */
+
+.prose {
+    color: #374151;
+    max-width: 65ch;
+    font-size: 1.125rem;
+    line-height: 1.75;
+}
+
+.prose.max-w-none {
+    max-width: none;
+}
+
+/* Headings */
+.prose h1 {
+    font-family: 'Playfair Display', serif;
+    color: #1F4E79;
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.prose h2 {
+    font-family: 'Playfair Display', serif;
+    color: #1F4E79;
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f3f4f6;
+}
+
+.prose h3 {
+    font-family: 'Playfair Display', serif;
+    color: #1F4E79;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.prose h4 {
+    font-family: 'Playfair Display', serif;
+    color: #1F4E79;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.prose h5 {
+    font-family: 'Playfair Display', serif;
+    color: #1F4E79;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.prose h6 {
+    font-family: 'Playfair Display', serif;
+    color: #1F4E79;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Paragraphs */
+.prose p {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.prose p:first-child {
+    margin-top: 0;
+}
+
+/* Links */
+.prose a {
+    color: #D72638;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.prose a:hover {
+    color: #F49D37;
+    text-decoration: underline;
+}
+
+/* Lists */
+.prose ul {
+    list-style-type: disc;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding-left: 1.75rem;
+}
+
+.prose ol {
+    list-style-type: decimal;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding-left: 1.75rem;
+}
+
+.prose li {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.prose li::marker {
+    color: #D72638;
+}
+
+.prose ul ul,
+.prose ol ol,
+.prose ul ol,
+.prose ol ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Nested list styles */
+.prose ul ul {
+    list-style-type: circle;
+}
+
+.prose ul ul ul {
+    list-style-type: square;
+}
+
+/* Blockquotes */
+.prose blockquote {
+    border-left: 4px solid #D72638;
+    background-color: rgba(253, 246, 236, 0.8);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: #4b5563;
+}
+
+.prose blockquote p {
+    margin: 0;
+}
+
+.prose blockquote cite {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 600;
+    color: #1F4E79;
+}
+
+/* Code */
+.prose code {
+    background-color: #f3f4f6;
+    color: #D72638;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.prose pre {
+    background-color: #1f2937;
+    color: #e5e7eb;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.7;
+}
+
+.prose pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+}
+
+/* Images */
+.prose img {
+    border-radius: 0.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.prose figure {
+    margin: 1.5rem 0;
+}
+
+.prose figcaption {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.75rem;
+    font-style: italic;
+}
+
+/* Tables */
+.prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+.prose thead {
+    background-color: #1F4E79;
+    color: white;
+}
+
+.prose th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.prose td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.prose tbody tr:hover {
+    background-color: rgba(253, 246, 236, 0.5);
+}
+
+/* Horizontal Rule */
+.prose hr {
+    border: none;
+    border-top: 2px solid #e5e7eb;
+    margin: 2rem 0;
+}
+
+/* Strong and Emphasis */
+.prose strong {
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.prose em {
+    font-style: italic;
+}
+
+/* Definition Lists */
+.prose dl {
+    margin: 1.25rem 0;
+}
+
+.prose dt {
+    font-weight: 600;
+    color: #1F4E79;
+    margin-top: 1rem;
+}
+
+.prose dd {
+    margin-left: 1.5rem;
+    margin-top: 0.25rem;
+    color: #4b5563;
+}
+
+/* Video and Embeds */
+.prose iframe,
+.prose video,
+.prose embed {
+    width: 100%;
+    border-radius: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+/* WordPress specific classes */
+.prose .wp-block-image {
+    margin: 1.5rem 0;
+}
+
+.prose .wp-block-image img {
+    margin: 0 auto;
+}
+
+.prose .aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.prose .alignleft {
+    float: left;
+    margin-right: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.prose .alignright {
+    float: right;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.prose .wp-caption {
+    max-width: 100%;
+}
+
+.prose .wp-caption-text {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* Gallery */
+.prose .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.prose .gallery-item {
+    margin: 0;
+}
+
+.prose .gallery-item img {
+    margin: 0;
+    width: 100%;
+    height: auto;
 }

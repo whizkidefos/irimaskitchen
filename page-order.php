@@ -163,10 +163,46 @@ get_header();
                             
                             <div>
                                 <label class="form-label"><?php _e('Payment Method *', 'irimas-kitchen'); ?></label>
-                                <select name="payment_method" class="form-select" required>
-                                    <option value="paystack"><?php _e('Pay with Paystack (Card)', 'irimas-kitchen'); ?></option>
-                                    <option value="bank_transfer"><?php _e('Bank Transfer', 'irimas-kitchen'); ?></option>
+                                <select name="payment_method" id="payment-method-select" class="form-select" required>
+                                    <option value="paystack"><?php _e('Pay with Card (Paystack)', 'irimas-kitchen'); ?></option>
+                                    <option value="paystack_bank_transfer"><?php _e('Pay with Bank Transfer (Paystack)', 'irimas-kitchen'); ?></option>
+                                    <option value="bank_transfer"><?php _e('Manual Bank Transfer', 'irimas-kitchen'); ?></option>
                                 </select>
+                                <p class="text-xs text-gray-500 mt-1" id="payment-method-hint"></p>
+                            </div>
+                            
+                            <!-- Bank Transfer Details (shown when bank transfer is selected) -->
+                            <div id="bank-transfer-details" class="hidden">
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                    <h4 class="font-bold text-irimas-blue mb-3 flex items-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                                        </svg>
+                                        <?php _e('Bank Account Details', 'irimas-kitchen'); ?>
+                                    </h4>
+                                    <div class="text-sm text-gray-700 whitespace-pre-line mb-4">
+                                        <?php 
+                                        $bank_details = get_option('irimas_bank_details', '');
+                                        if ($bank_details) {
+                                            echo nl2br(esc_html($bank_details));
+                                        } else {
+                                            _e('Bank details not configured. Please contact us.', 'irimas-kitchen');
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="bg-yellow-50 border border-yellow-200 rounded p-3 text-sm">
+                                        <p class="text-yellow-800">
+                                            <strong><?php _e('Important:', 'irimas-kitchen'); ?></strong>
+                                            <?php _e('Please use your Order Number as the payment reference. Your order will be processed once payment is confirmed.', 'irimas-kitchen'); ?>
+                                        </p>
+                                    </div>
+                                    <label class="flex items-start gap-3 mt-4 cursor-pointer">
+                                        <input type="checkbox" id="bank-transfer-confirm" class="mt-1 w-5 h-5 accent-irimas-red">
+                                        <span class="text-sm text-gray-700">
+                                            <?php _e('I have read the bank details and understand that my order will be processed after payment confirmation.', 'irimas-kitchen'); ?>
+                                        </span>
+                                    </label>
+                                </div>
                             </div>
                             
                             <div>

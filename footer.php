@@ -1,12 +1,8 @@
 </div><!-- .site-content -->
 
-<footer class="site-footer bg-gradient-to-br from-irimas-blue via-irimas-blue to-slate-900 text-white py-16 mt-20 relative overflow-hidden">
-    <!-- Decorative Pattern -->
-    <div class="absolute inset-0 opacity-5">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMzYgMzRjMC0yLTItNC00LTRzLTQgMi00IDQgMiA0IDQgNCA0LTIgNC00em0wLTMwYzAtMi0yLTQtNC00cy00IDItNCA0IDIgNCA0IDQgNC0yIDQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')]"></div>
-    </div>
-    <div class="container mx-auto px-4 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+<footer class="site-footer bg-irimas-blue text-white py-12 mt-20">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <!-- About Column -->
             <div class="footer-column">
                 <h3 class="text-xl font-bold mb-4 font-playfair"><?php bloginfo('name'); ?></h3>
@@ -14,29 +10,26 @@
                     <?php echo get_bloginfo('description'); ?>
                 </p>
                 <div class="flex space-x-4">
-                    <?php if ($facebook = get_theme_mod('irimas_facebook')): ?>
-                        <a href="<?php echo esc_url($facebook); ?>" target="_blank" rel="noopener noreferrer" class="hover:text-irimas-orange transition" aria-label="Facebook">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                            </svg>
-                        </a>
-                    <?php endif; ?>
-                    <?php if ($instagram = get_theme_mod('irimas_instagram')): ?>
-                        <a href="<?php echo esc_url($instagram); ?>" target="_blank" rel="noopener noreferrer" class="hover:text-irimas-orange transition" aria-label="Instagram">
+                    <?php
+                    $social_links = array(
+                        'facebook' => 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z',
+                        'instagram' => 'M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M6.5 6.5h11v11h-11z M2 12c0 5.523 4.477 10 10 10s10-4.477 10-10S17.523 2 12 2 2 6.477 2 12z',
+                        'twitter' => 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z',
+                    );
+                    
+                    foreach ($social_links as $social => $path):
+                        $url = get_theme_mod('irimas_' . $social);
+                        if ($url):
+                    ?>
+                        <a href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener noreferrer" class="hover:text-irimas-orange transition" aria-label="<?php echo ucfirst($social); ?>">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"></rect>
-                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"></line>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="<?php echo $path; ?>"></path>
                             </svg>
                         </a>
-                    <?php endif; ?>
-                    <?php if ($tiktok = get_theme_mod('irimas_tiktok')): ?>
-                        <a href="<?php echo esc_url($tiktok); ?>" target="_blank" rel="noopener noreferrer" class="hover:text-irimas-orange transition" aria-label="TikTok">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"></path>
-                            </svg>
-                        </a>
-                    <?php endif; ?>
+                    <?php 
+                        endif;
+                    endforeach; 
+                    ?>
                 </div>
             </div>
             
@@ -112,7 +105,14 @@
                 &copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. <?php _e('All rights reserved.', 'irimas-kitchen'); ?>
             </p>
             <p class="text-cream-light text-sm">
-                <?php _e('Designed with', 'irimas-kitchen'); ?> <span class="text-irimas-red">❤</span> <?php _e('by Irima\'s Kitchen', 'irimas-kitchen'); ?>
+                <?php 
+                $designer_url = get_theme_mod('irimas_designer_url', '#');
+                $designer_name = get_theme_mod('irimas_designer_name', 'Irima\'s Kitchen');
+                ?>
+                <?php _e('Designed with', 'irimas-kitchen'); ?> <span class="text-irimas-red">❤</span> <?php _e('by', 'irimas-kitchen'); ?> 
+                <a href="<?php echo esc_url($designer_url); ?>" target="_blank" rel="noopener noreferrer" class="text-white hover:text-irimas-orange transition font-semibold">
+                    <?php echo esc_html($designer_name); ?>
+                </a>
             </p>
         </div>
     </div>

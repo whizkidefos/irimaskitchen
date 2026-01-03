@@ -213,5 +213,35 @@ function irimas_customize_register($wp_customize) {
             'type' => 'url',
         ));
     }
+
+     // Footer Settings
+    $wp_customize->add_section('irimas_footer', array(
+        'title' => __('Footer Settings', 'irimas-kitchen'),
+        'priority' => 60,
+    ));
+    
+    $wp_customize->add_setting('irimas_designer_name', array(
+        'default' => 'Irima\'s Kitchen',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('irimas_designer_name', array(
+        'label' => __('Designer Name', 'irimas-kitchen'),
+        'description' => __('The name shown in "Designed by..." footer text', 'irimas-kitchen'),
+        'section' => 'irimas_footer',
+        'type' => 'text',
+    ));
+    
+    $wp_customize->add_setting('irimas_designer_url', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    
+    $wp_customize->add_control('irimas_designer_url', array(
+        'label' => __('Designer Website URL', 'irimas-kitchen'),
+        'description' => __('External website link (opens in new tab)', 'irimas-kitchen'),
+        'section' => 'irimas_footer',
+        'type' => 'url',
+    ));
 }
 add_action('customize_register', 'irimas_customize_register');

@@ -7,11 +7,22 @@
 
     let cart = JSON.parse(localStorage.getItem('irimas_cart')) || [];
 
+    // Fallback placeholder image (inline SVG data URI)
+    const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNGM0Y0RjYiLz48cGF0aCBkPSJNMTAwIDcwQzg4LjUgNzAgNzkgNzkuNSA3OSA5MUM3OSAxMDIuNSA4OC41IDExMiAxMDAgMTEyQzExMS41IDExMiAxMjEgMTAyLjUgMTIxIDkxQzEyMSA3OS41IDExMS41IDcwIDEwMCA3MFpNMTAwIDEwMkM5NC41IDEwMiA5MCA5Ny41IDkwIDkyQzkwIDg2LjUgOTQuNSA4MiAxMDAgODJDMTA1LjUgODIgMTEwIDg2LjUgMTEwIDkyQzExMCA5Ny41IDEwNS41IDEwMiAxMDAgMTAyWiIgZmlsbD0iI0Q3MjYzOCIvPjxwYXRoIGQ9Ik0xNDAgMTMwSDYwQzU0LjUgMTMwIDUwIDEzNC41IDUwIDE0MFYxNTBINjBWMTQwSDcwVjE1MEg4MFYxNDBIOTBWMTUwSDEwMFYxNDBIMTEwVjE1MEgxMjBWMTQwSDEzMFYxNTBIMTQwVjE0MEgxNTBWMTUwSDE1MFYxNDBDMTUwIDEzNC41IDE0NS41IDEzMCAxNDAgMTMwWiIgZmlsbD0iI0Y0OUQzNyIvPjwvc3ZnPg==';
+
     $(document).ready(function() {
         initializeCart();
         initializeCategoryFilter();
         initializeCheckout();
+        handleBrokenImages();
     });
+
+    // Handle broken images by replacing with placeholder
+    function handleBrokenImages() {
+        $(document).on('error', 'img', function() {
+            $(this).attr('src', placeholderImage);
+        });
+    }
 
     function initializeCart() {
         renderCart();
@@ -91,11 +102,12 @@
         cart.forEach(item => {
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
+            const imageUrl = item.image || placeholderImage;
 
             html += `
                 <div class="cart-item mb-4 pb-4 border-b">
                     <div class="flex items-start space-x-3">
-                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
+                        <img src="${imageUrl}" alt="${item.name}" class="w-16 h-16 object-cover rounded" onerror="this.src='${placeholderImage}'">
                         <div class="flex-1">
                             <h4 class="font-semibold text-sm mb-1">${item.name}</h4>
                             <p class="text-irimas-red font-bold">₦${item.price.toLocaleString()}</p>
@@ -149,9 +161,36 @@
         $('#close-checkout-modal').on('click', function() {
             $('#checkout-modal').addClass('hidden');
         });
+        
+        // Toggle bank transfer details visibility and show payment hints
+        $('#payment-method-select').on('change', function() {
+            const method = $(this).val();
+            const hint = $('#payment-method-hint');
+            
+            if (method === 'bank_transfer') {
+                $('#bank-transfer-details').removeClass('hidden');
+                hint.text('You will need to manually transfer to our bank account and wait for confirmation.');
+            } else if (method === 'paystack_bank_transfer') {
+                $('#bank-transfer-details').addClass('hidden');
+                $('#bank-transfer-confirm').prop('checked', false);
+                hint.text('You will be redirected to Paystack to complete a bank transfer. Payment is automatically confirmed.');
+            } else {
+                $('#bank-transfer-details').addClass('hidden');
+                $('#bank-transfer-confirm').prop('checked', false);
+                hint.text('You will be redirected to Paystack to pay securely with your card.');
+            }
+        }).trigger('change'); // Trigger on load to set initial hint
 
         $('#checkout-form').on('submit', function(e) {
             e.preventDefault();
+            
+            // Validate bank transfer confirmation
+            const paymentMethod = $('#payment-method-select').val();
+            if (paymentMethod === 'bank_transfer' && !$('#bank-transfer-confirm').is(':checked')) {
+                showNotification('Please confirm you have read the bank transfer details.', 'error');
+                return;
+            }
+            
             processOrder();
         });
     }
