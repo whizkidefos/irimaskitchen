@@ -59,14 +59,18 @@ get_header();
             <?php endif; ?>
         </div>
 
-        <?php
-        the_posts_pagination(array(
-            'mid_size'  => 2,
-            'prev_text' => __('← Previous', 'irimas-kitchen'),
-            'next_text' => __('Next →', 'irimas-kitchen'),
-            'class'     => 'mt-12',
-        ));
-        ?>
+        <div class="pagination mt-12 flex justify-center items-center space-x-2">
+            <?php
+            echo paginate_links(array(
+                'mid_size'  => 2,
+                'prev_text' => '<span class="px-4 py-2 bg-irimas-blue text-white rounded hover:bg-irimas-green transition">← Previous</span>',
+                'next_text' => '<span class="px-4 py-2 bg-irimas-blue text-white rounded hover:bg-irimas-green transition">Next →</span>',
+                'type'      => 'list',
+                'before_page_number' => '<span class="px-4 py-2 bg-gray-200 rounded hover:bg-irimas-red hover:text-white transition">',
+                'after_page_number'  => '</span>',
+            ));
+            ?>
+        </div>
     </div>
 </div>
 

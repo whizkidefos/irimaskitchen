@@ -224,8 +224,67 @@ function irimas_update_order_status() {
         wp_send_json_error(array('message' => __('Invalid status.', 'irimas-kitchen')));
     }
     
+    $old_status = get_post_meta($order_id, '_order_status', true);
     update_post_meta($order_id, '_order_status', $status);
+    
+    // Send status change notification email
+    if ($old_status !== $status) {
+        irimas_send_order_status_email($order_id, $status);
+    }
     
     wp_send_json_success(array('message' => __('Order status updated.', 'irimas-kitchen')));
 }
 add_action('wp_ajax_irimas_update_order_status', 'irimas_update_order_status');
+
+/**
+ * Send Order Status Change Email to Customer
+ */
+function irimas_send_order_status_email($order_id, $new_status) {
+    $order_number = get_post_meta($order_id, '_order_number', true);
+    $customer_name = get_post_meta($order_id, '_customer_name', true);
+    $customer_email = get_post_meta($order_id, '_customer_email', true);
+    $order_total = get_post_meta($order_id, '_order_total', true);
+    
+    $status_messages = array(
+        'pending' => __('Your order has been received and is awaiting confirmation.', 'irimas-kitchen'),
+        'processing' => __('Great news! Your order is now being prepared by our chefs.', 'irimas-kitchen'),
+        'completed' => __('Your order has been completed and is ready for pickup/delivery!', 'irimas-kitchen'),
+        'cancelled' => __('Your order has been cancelled. If you have any questions, please contact us.', 'irimas-kitchen'),
+    );
+    
+    $subject = sprintf(__('Order Status Update - %s', 'irimas-kitchen'), $order_number);
+    
+    $message = sprintf(__('Dear %s,', 'irimas-kitchen'), $customer_name) . "\n\n";
+    $message .= __('Your order status has been updated:', 'irimas-kitchen') . "\n\n";
+    $message .= sprintf(__('Order Number: %s', 'irimas-kitchen'), $order_number) . "\n";
+    $message .= sprintf(__('New Status: %s', 'irimas-kitchen'), ucfirst($new_status)) . "\n\n";
+    $message .= $status_messages[$new_status] . "\n\n";
+    
+    if ($new_status === 'completed') {
+        $delivery_option = get_post_meta($order_id, '_delivery_option', true);
+        if ($delivery_option === 'delivery') {
+            $message .= __('Your order will be delivered to your address shortly.', 'irimas-kitchen') . "\n";
+        } else {
+            $message .= __('Your order is ready for pickup at our location:', 'irimas-kitchen') . "\n";
+            $message .= get_theme_mod('irimas_address', 'Lennox Mall, Admiralty Way, Lekki Phase One, Lagos') . "\n";
+        }
+        $message .= "\n";
+    }
+    
+    $message .= sprintf(__('Order Total: NGN %s', 'irimas-kitchen'), number_format($order_total, 2)) . "\n\n";
+    $message .= __('If you have any questions, please contact us:', 'irimas-kitchen') . "\n";
+    
+    if ($phone = get_theme_mod('irimas_phone')) {
+        $message .= sprintf(__('Phone: %s', 'irimas-kitchen'), $phone) . "\n";
+    }
+    if ($email = get_theme_mod('irimas_email')) {
+        $message .= sprintf(__('Email: %s', 'irimas-kitchen'), $email) . "\n";
+    }
+    
+    $message .= "\n" . __('Thank you for choosing Irima\'s Kitchen!', 'irimas-kitchen') . "\n\n";
+    $message .= __('Best regards,', 'irimas-kitchen') . "\n";
+    $message .= __('Irima\'s Kitchen Team', 'irimas-kitchen');
+    
+    $headers = array('Content-Type: text/plain; charset=UTF-8');
+    wp_mail($customer_email, $subject, $message, $headers);
+}
