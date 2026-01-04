@@ -10,7 +10,8 @@ if (!defined('ABSPATH')) {
 }
 
 // Define theme constants
-define('IRIMAS_VERSION', '1.0.0');
+// Use file modification time for cache busting on CSS/JS files
+define('IRIMAS_VERSION', '1.0.1');
 define('IRIMAS_THEME_DIR', get_template_directory());
 define('IRIMAS_THEME_URI', get_template_directory_uri());
 
@@ -139,6 +140,21 @@ require_once IRIMAS_THEME_DIR . '/inc/user-functions.php';
 require_once IRIMAS_THEME_DIR . '/inc/contact-functions.php';
 require_once IRIMAS_THEME_DIR . '/inc/customizer.php';
 require_once IRIMAS_THEME_DIR . '/inc/login-customization.php';
+
+/**
+ * Customize email "From" name and address
+ */
+function irimas_email_from_name($name) {
+    return "Irima's Kitchen";
+}
+add_filter('wp_mail_from_name', 'irimas_email_from_name');
+
+function irimas_email_from_address($email) {
+    // Use the admin email or a custom email
+    $custom_email = get_option('admin_email');
+    return $custom_email;
+}
+add_filter('wp_mail_from', 'irimas_email_from_address');
 
 /**
  * Custom template tags
